@@ -1,0 +1,93 @@
+version: "3.5"
+
+services:
+ dbservice:
+  image: mysql
+  environment:
+   - MYSQL_ROOT_PASSWORD=root
+  ports:
+   - "3306:3306"
+
+ rabbitmq:
+  image: rabbitmq:3-management-alpine
+  container_name: 'rabbitmq'
+  ports:
+   - "5672:5672"
+   - "15672:15672"
+
+ discoveryserver: 
+  image: discoveryserver
+  container_name: discoveryserver
+  build: ./discovery-server
+  ports: 
+   - "8761:8761"
+
+ configserver:
+  image: configserver
+  container_name: configserver
+  build: ./config-server
+  depends_on:
+   - discoveryserver
+  ports:
+   - "3005:3005" 
+   
+ apigateway:
+  image: apigateway
+  container_name: apigateway
+  build: ./api-gateway
+  depends_on:
+   - discoveryserver
+  ports:
+   - "8080:8080"
+
+ customerauthorization:
+  image: customerauthorization
+  container_name: customerauthorization
+  depends_on:
+   - discoveryserver
+   - apigateway
+   - dbservice
+   - rabbitmq
+  build: ./customer-authorization
+  restart: on-failure
+  environment:
+   - spring.datasource.url=jdbc:mysql://dbservice:3306/CustomeAuth?createDatabaseIfNotExist=true
+   - spring.datasource.username=root
+   - spring.datasource.password=root
+  ports:
+   - "8888:8888" 
+ 
+ accountmanagment:
+  image: accountmanagment
+  container_name: accountmanagment
+  depends_on:
+   - discoveryserver
+   - configserver
+   - dbservice
+   - rabbitmq
+  build: ./account-managment-service
+  restart: on-failure
+  environment:
+   - spring.datasource.url=jdbc:mysql://dbservice:3306/AccountManagment?createDatabaseIfNotExist=true 
+   - spring.datasource.username=root
+   - spring.datasource.password=root
+  ports:
+   - "8081:8081"
+
+ customermanagment:
+  image: customermanagment
+  container_name: customermanagment
+  depends_on:
+   - discoveryserver
+   - configserver
+   - dbservice
+   - rabbitmq
+  build: ./customer-managment-service
+  restart: on-failure
+  environment:
+   - spring.datasource.url=jdbc:mysql://dbservice:3306/CustomerManagment?createDatabaseIfNotExist=true
+   - spring.datasource.username=root
+   - spring.datasource.password=root
+  ports:
+   - "8082:8082"
+ 
