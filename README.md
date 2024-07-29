@@ -5,14 +5,16 @@ This project is an Account Management Application API built using Spring Boot, l
 The Discovery Server acts as the central point for service registration and discovery within the microservices architecture. It enables dynamic scaling by allowing services to register themselves and discover other services without needing hardcoded endpoints.
 
 * **Technology Used:** `Spring Cloud Netflix Eureka`
+* **PORT:** `8761`
 * **Functionality:**
   - Manages service instances and tracks their availability.
   - Allows dynamic scaling and service health monitoring.
 
 ### 2. API Gateway
-The API Gateway serves as the entry point for all client requests. It routes incoming requests to the appropriate microservice and handles cross-cutting concerns like authentication, logging, and rate limiting.
+The API Gateway serves as the entry point for all client requests. It routes incoming requests to the appropriate microservice and handles cross-cutting concerns like authentication, logging, and rate limiting. Running on 
 
 * **Technology Used:** `Spring Cloud Gateway`
+* **PORT:** `8080`
 * **Functionality:**
   - Routes client requests to the appropriate microservices.
   - Performs authentication checks using JWT tokens.
@@ -22,6 +24,7 @@ The API Gateway serves as the entry point for all client requests. It routes inc
 The Account Management Service handles all operations related to account creation, modification, and deletion. It is responsible for maintaining the account data and ensuring data integrity.
 
 * **Technology Used:** `Spring Boot`, `Spring Data JPA`
+* **PORT:** `8081`
 * **Functionality:**
   - Manages CRUD operations for account data.
   - Ensures data consistency and integrity using JPA.
@@ -31,6 +34,7 @@ The Account Management Service handles all operations related to account creatio
 The User Management Service is responsible for managing user profiles, permissions, and roles. It ensures secure access control and user data management.
 
 * **Technology Used:** `Spring Boot`, `Spring Data JPA`
+* **PORT:** `8082`
 * **Functionality:**
   - Handles user registration, updates, and deletions.
   - Manages user roles and permissions.
@@ -40,6 +44,7 @@ The User Management Service is responsible for managing user profiles, permissio
 The Auth Server handles authentication and authorization processes within the application. It issues and validates JWT tokens to ensure secure access to protected resources.
 
 * **Technology Used:** `Spring Security`, `JWT`
+* **PORT:** `8888`
 * **Functionality:**
   - Authenticates users and issues JWT tokens.
   - Validates JWT tokens for API requests.
@@ -49,6 +54,7 @@ The Auth Server handles authentication and authorization processes within the ap
 The Config Server centralizes the management of configuration properties for all microservices. It ensures consistency and simplifies the configuration management process.
 
 * **Technology Used:** `Spring Cloud Config`
+* **PORT:** `3005`
 * **Functionality:**
   - Provides centralized configuration management for all microservices.
   - Supports dynamic property updates without restarting services.
