@@ -45,6 +45,15 @@ The Auth Server handles authentication and authorization processes within the ap
   - Validates JWT tokens for API requests.
   - Manages user sessions and token expiration.
 
+### 6. Config Server
+The Config Server centralizes the management of configuration properties for all microservices. It ensures consistency and simplifies the configuration management process.
+
+* **Technology Used:** `Spring Cloud Config`
+* **Functionality:**
+  - Provides centralized configuration management for all microservices.
+  - Supports dynamic property updates without restarting services.
+  - Integrates with version control systems for configuration versioning.
+
 ## Key Technologies
 * **`JWT(JSON Web Token)`:** Used for secure authentication and authorization, providing a stateless way to manage user sessions.
 * **`RabbitMQ`:** Implements message queuing for asynchronous communication between services, improving scalability and resilience.
